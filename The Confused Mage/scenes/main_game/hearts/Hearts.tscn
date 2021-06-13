@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/main_game/hearts/Hearts.gd" type="Script" id=2]
+[ext_resource path="res://scenes/main_game/hearts/heart_frames.tres" type="SpriteFrames" id=3]
+
+[node name="Hearts" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Heart1" type="AnimatedSprite" parent="."]
+frames = ExtResource( 3 )
+animation = "gaining"
+offset = Vector2( -23, -1 )
+
+[node name="Heart2" type="AnimatedSprite" parent="."]
+frames = ExtResource( 3 )
+animation = "gaining"
+offset = Vector2( -1, -1 )
+
+[node name="Heart3" type="AnimatedSprite" parent="."]
+frames = ExtResource( 3 )
+animation = "gaining"
+offset = Vector2( 21, -1 )

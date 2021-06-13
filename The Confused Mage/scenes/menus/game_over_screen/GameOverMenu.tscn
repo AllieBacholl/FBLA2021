@@ -1,0 +1,100 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/menus/game_over_screen/GameOverMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/gui/fonts/Acme/Acme-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/menus/game_over_screen/buttons/ScoreboardButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/fade_in/FadeIn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/QuitButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/gui/fonts/title_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/gui/fonts/text_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://assets/gui/menu_background.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 2 )
+
+[node name="GameOverMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 500.0
+margin_bottom = 525.0
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 40.0
+margin_top = 60.0
+margin_right = 463.0
+margin_bottom = 468.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="Label" parent="Menu"]
+margin_right = 423.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 120 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0.486275, 0.427451, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 1
+text = "Game Over"
+align = 1
+
+[node name="Level" type="Label" parent="Menu"]
+margin_top = 124.0
+margin_right = 423.0
+margin_bottom = 176.0
+custom_fonts/font = SubResource( 1 )
+text = "Completed Levels: 0"
+align = 1
+
+[node name="Time" type="Label" parent="Menu"]
+margin_top = 180.0
+margin_right = 423.0
+margin_bottom = 305.0
+rect_min_size = Vector2( 0, 125 )
+custom_fonts/font = ExtResource( 7 )
+text = "Total Time: 00:00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 309.0
+margin_right = 423.0
+margin_bottom = 413.0
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 423.0
+margin_bottom = 104.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScoreboardButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
+margin_right = 423.0
+
+[node name="QuitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
+margin_top = 54.0
+margin_right = 423.0
+margin_bottom = 104.0
+
+[node name="FadeIn" parent="." instance=ExtResource( 4 )]
+mouse_filter = 2
+[connection signal="pressed" from="Menu/CenterRow/Buttons/ScoreboardButton" to="." method="_on_ScoreboardButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]

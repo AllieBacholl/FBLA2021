@@ -1,0 +1,74 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scenes/main_game/mage/Mage.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/main_game/Play.gd" type="Script" id=2]
+[ext_resource path="res://scenes/main_game/maze/Maze.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/next_level_menu/NextLevelMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/main_game/Menu.gd" type="Script" id=5]
+[ext_resource path="res://scenes/menus/game_over_screen/GameOverMenu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/died_menu/DiedMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/menus/quit_menu/QuitMenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/enter_name_menu/EnterNameMenu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/sound/background/background_music.ogg" type="AudioStream" id=10]
+[ext_resource path="res://assets/sound/creak.ogg" type="AudioStream" id=11]
+[ext_resource path="res://assets/sound/death.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/sound/powerup.ogg" type="AudioStream" id=13]
+
+[node name="Play" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Maze" parent="." instance=ExtResource( 3 )]
+
+[node name="Mage" parent="." instance=ExtResource( 1 )]
+position = Vector2( 20, 20 )
+
+[node name="Menus" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
+
+[node name="NextLevelMenu" parent="Menus" instance=ExtResource( 4 )]
+visible = false
+
+[node name="DiedMenu" parent="Menus" instance=ExtResource( 7 )]
+visible = false
+
+[node name="GameOverMenu" parent="Menus" instance=ExtResource( 6 )]
+visible = false
+
+[node name="QuitMenu" parent="Menus" instance=ExtResource( 8 )]
+visible = false
+
+[node name="EnterNameMenu" parent="Menus" instance=ExtResource( 9 )]
+visible = false
+
+[node name="AudioStreamPlayerNextLevel" type="AudioStreamPlayer" parent="Menus"]
+stream = ExtResource( 11 )
+bus = "Echo"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
+bus = "Lower dB"
+
+[node name="AudioStreamPlayerDeath" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+bus = "Echo"
+
+[node name="AudioStreamPlayerPowerUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+bus = "Lower dB"
+[connection signal="Game_over" from="." to="Menus" method="_on_Play_Game_over"]
+[connection signal="Mage_death" from="." to="Menus" method="_on_Play_Mage_death"]
+[connection signal="finished_maze" from="." to="Menus" method="_on_Play_finished_maze"]
+[connection signal="Animation_finished" from="Mage" to="." method="_on_Mage_Animation_finished"]
+[connection signal="Game_over" from="Mage" to="." method="_on_Mage_Game_over"]
+[connection signal="Mage_death" from="Mage" to="." method="_on_Mage_Mage_death"]
+[connection signal="collided" from="Mage" to="." method="_on_Mage_collided"]
+[connection signal="NextLevel_pressed" from="Menus/NextLevelMenu" to="Menus" method="_on_NextLevelMenu_NextLevel_pressed"]
+[connection signal="Quit_pressed" from="Menus/NextLevelMenu" to="Menus" method="_on_NextLevelMenu_Quit_pressed"]
+[connection signal="Quit_pressed" from="Menus/DiedMenu" to="Menus" method="_on_DiedMenu_Quit_pressed"]
+[connection signal="Retry_pressed" from="Menus/DiedMenu" to="Menus" method="_on_DiedMenu_Retry_pressed"]
+[connection signal="Quit_pressed" from="Menus/GameOverMenu" to="Menus" method="_on_GameOverMenu_Quit_pressed"]
+[connection signal="Scoreboard_pressed" from="Menus/GameOverMenu" to="Menus" method="_on_GameOverMenu_Scoreboard_pressed"]
+[connection signal="Add_Score_pressed" from="Menus/QuitMenu" to="Menus" method="_on_QuitMenu_Add_Score_pressed"]
+[connection signal="Return_pressed" from="Menus/QuitMenu" to="Menus" method="_on_QuitMenu_Return_pressed"]
+[connection signal="Continue_pressed" from="Menus/EnterNameMenu" to="Menus" method="_on_EnterNameMenu_Continue_pressed"]

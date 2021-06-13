@@ -1,0 +1,173 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/gui/menu_background.png" type="Texture" id=1]
+[ext_resource path="res://scenes/scoreboard/MainMenuButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/gui/fonts/title_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/scoreboard/Scoreboard.gd" type="Script" id=4]
+[ext_resource path="res://scenes/menus/QuitButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/fade_in/FadeIn.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/gui/ScoreboardGridTheme.tres" type="Theme" id=7]
+
+[node name="ScoreboardMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 500.0
+margin_bottom = 525.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 40.0
+margin_top = 30.0
+margin_right = 463.0
+margin_bottom = 438.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scoreboard" type="Label" parent="Menu"]
+margin_right = 423.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color_shadow = Color( 0, 0.486275, 0.427451, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 1
+text = "Scoreboard"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menu"]
+margin_top = 104.0
+margin_right = 423.0
+margin_bottom = 140.0
+size_flags_horizontal = 3
+
+[node name="MarginContainer4" type="MarginContainer" parent="Menu/HBoxContainer2"]
+margin_right = 40.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Level" type="Label" parent="Menu/HBoxContainer2"]
+margin_left = 44.0
+margin_right = 100.0
+margin_bottom = 36.0
+theme = ExtResource( 7 )
+custom_colors/font_color = Color( 0, 0.768627, 0.67451, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Level"
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/HBoxContainer2"]
+margin_left = 104.0
+margin_right = 144.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Time" type="Label" parent="Menu/HBoxContainer2"]
+margin_left = 148.0
+margin_right = 265.0
+margin_bottom = 36.0
+theme = ExtResource( 7 )
+text = "Total Time"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Menu/HBoxContainer2"]
+margin_left = 269.0
+margin_right = 309.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 20, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="Menu/HBoxContainer2"]
+margin_left = 313.0
+margin_right = 379.0
+margin_bottom = 36.0
+theme = ExtResource( 7 )
+text = "Name"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Menu/HBoxContainer2"]
+margin_left = 383.0
+margin_right = 423.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+margin_top = 144.0
+margin_right = 423.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
+margin_top = 158.0
+margin_right = 423.0
+margin_bottom = 158.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/HBoxContainer"]
+margin_right = 35.0
+rect_min_size = Vector2( 35, 0 )
+size_flags_vertical = 3
+
+[node name="GridContainerLeft" type="GridContainer" parent="Menu/HBoxContainer"]
+margin_left = 39.0
+margin_right = 217.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+columns = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="Menu/HBoxContainer"]
+margin_left = 221.0
+margin_right = 241.0
+rect_min_size = Vector2( 20, 0 )
+size_flags_vertical = 3
+
+[node name="GridContainerRight" type="GridContainer" parent="Menu/HBoxContainer"]
+margin_left = 245.0
+margin_right = 423.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+columns = 3
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 162.0
+margin_right = 423.0
+margin_bottom = 408.0
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 423.0
+margin_bottom = 246.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MainMenuButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
+margin_right = 423.0
+
+[node name="QuitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
+margin_top = 54.0
+margin_right = 423.0
+margin_bottom = 104.0
+
+[node name="FadeIn" parent="." instance=ExtResource( 6 )]
+mouse_filter = 2
+[connection signal="pressed" from="Menu/CenterRow/Buttons/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]

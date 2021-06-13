@@ -1,0 +1,136 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/gui/menu_background.png" type="Texture" id=1]
+[ext_resource path="res://scenes/tutorial/Tutorial.gd" type="Script" id=2]
+[ext_resource path="res://assets/gui/fonts/title_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scenes/tutorial/BackButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/fade_in/FadeIn.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/tiles/overlay_tiles.png" type="Texture" id=7]
+[ext_resource path="res://assets/gui/fonts/Acme/Acme-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/gui/mage_single.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 8 )
+
+[node name="TutorialMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 500.0
+margin_bottom = 525.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 45.0
+margin_top = 18.0
+margin_right = 460.0
+margin_bottom = 509.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="Label" parent="Menu"]
+margin_right = 415.0
+margin_bottom = 88.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color_shadow = Color( 0, 0.486275, 0.427451, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 1
+text = "Tutorial"
+align = 1
+
+[node name="Help" type="Label" parent="Menu"]
+margin_top = 92.0
+margin_right = 415.0
+margin_bottom = 425.0
+rect_min_size = Vector2( 0, 300 )
+custom_fonts/font = SubResource( 1 )
+text = "Use the WASD keys to move the 
+mage (     ). Move over power ups 
+(     ,     ,     ,     ) to gain their bonuses. 
+Reach the trapdoor (     )  before the 
+time runs out to complete the level 
+and move to the next maze.
+Complete the most levels to
+reach the scoreboard."
+align = 1
+
+[node name="Mage" type="Sprite" parent="Menu/Help"]
+position = Vector2( 0, -92 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 9 )
+offset = Vector2( 152, 205 )
+
+[node name="Power1" type="Sprite" parent="Menu/Help"]
+position = Vector2( 30, 108 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+vframes = 4
+hframes = 2
+frame = 1
+
+[node name="Sprite2" type="Sprite" parent="Menu/Help"]
+position = Vector2( 61, 103 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+vframes = 4
+hframes = 2
+frame = 3
+
+[node name="Power3" type="Sprite" parent="Menu/Help"]
+position = Vector2( 90, 102 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+vframes = 4
+hframes = 2
+frame = 5
+
+[node name="Power4" type="Sprite" parent="Menu/Help"]
+position = Vector2( 125, 98 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+vframes = 4
+hframes = 2
+frame = 7
+
+[node name="Trapdoor" type="Sprite" parent="Menu/Help"]
+position = Vector2( 261, 147 )
+scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 7 )
+vframes = 4
+hframes = 2
+frame = 2
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 429.0
+margin_right = 415.0
+margin_bottom = 491.0
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 415.0
+margin_bottom = 62.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BackButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
+margin_right = 415.0
+rect_min_size = Vector2( 100, 50 )
+scene_to_load = "res://scenes/menus/title_screen/TitleScreen.tscn"
+
+[node name="FadeIn" parent="." instance=ExtResource( 6 )]
+mouse_filter = 2
+[connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]

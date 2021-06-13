@@ -1,0 +1,94 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/menus/quit_menu/QuitMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/gui/fonts/Acme/Acme-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/menus/quit_menu/AddScoreButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/fade_in/FadeIn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/QuitButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/quit_menu/ReturnButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/gui/menu_background.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 2 )
+
+[node name="QuitMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 500.0
+margin_bottom = 525.0
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 40.0
+margin_top = 60.0
+margin_right = 463.0
+margin_bottom = 468.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="Menu"]
+margin_right = 423.0
+margin_bottom = 270.0
+rect_min_size = Vector2( 0, 270 )
+custom_fonts/font = SubResource( 1 )
+text = "If you quit, your current score will 
+not be recorded. Press the
+\"Add Score\" button to record your 
+score. Press \"Return to Game\" to 
+resume the game. Press \"Quit\" to 
+exit the game."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 274.0
+margin_right = 423.0
+margin_bottom = 432.0
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 423.0
+margin_bottom = 158.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AddScoreButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
+margin_right = 423.0
+
+[node name="ReturnButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 6 )]
+margin_top = 54.0
+margin_right = 423.0
+margin_bottom = 104.0
+
+[node name="QuitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
+margin_top = 108.0
+margin_right = 423.0
+margin_bottom = 158.0
+
+[node name="FadeIn" parent="." instance=ExtResource( 4 )]
+margin_left = 5.66321
+margin_top = 27.3724
+margin_right = 5.66321
+margin_bottom = 27.3724
+mouse_filter = 2
+[connection signal="pressed" from="Menu/CenterRow/Buttons/AddScoreButton" to="." method="_on_AddScoreButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/ReturnButton" to="." method="_on_ReturnButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]

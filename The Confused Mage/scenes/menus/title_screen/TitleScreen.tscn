@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/gui/fonts/title_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/gui/menu_background.png" type="Texture" id=2]
+[ext_resource path="res://scenes/menus/title_screen/buttons/ExitButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sound/background/menu_music.ogg" type="AudioStream" id=4]
+[ext_resource path="res://scenes/menus/title_screen/buttons/PlayButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/title_screen/buttons/TutorialButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/title_screen/buttons/ScoreboardButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/fade_in/FadeIn.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/title_screen/TitleScreen.gd" type="Script" id=9]
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 500.0
+margin_bottom = 525.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 445.0
+margin_bottom = 461.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="Label" parent="Menu"]
+margin_right = 395.0
+margin_bottom = 195.0
+rect_min_size = Vector2( 0, 195 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0.486275, 0.427451, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 1
+text = "The Confused
+Mage"
+align = 1
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 199.0
+margin_right = 395.0
+margin_bottom = 411.0
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 395.0
+margin_bottom = 212.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
+margin_right = 395.0
+scene_to_load = "res://scenes/main_game/Play.tscn"
+
+[node name="TutorialButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 6 )]
+margin_top = 54.0
+margin_right = 395.0
+margin_bottom = 104.0
+scene_to_load = "res://scenes/tutorial/Tutorial.tscn"
+
+[node name="ScoreboardButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 7 )]
+margin_top = 108.0
+margin_right = 395.0
+margin_bottom = 158.0
+scene_to_load = "res://scenes/scoreboard/ScoreboardMenu.tscn"
+
+[node name="ExitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
+margin_top = 162.0
+margin_right = 395.0
+margin_bottom = 212.0
+
+[node name="FadeIn" parent="." instance=ExtResource( 8 )]
+mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
+bus = "Lower dB"
+[connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]
